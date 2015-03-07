@@ -1,6 +1,6 @@
 @Moves = new Meteor.Collection("moves")
 
-@Logs.allow
+@Moves.allow
   insert: (userId, doc) ->
     # the user must be logged in
     userId? and doc.userId is userId

@@ -4,7 +4,9 @@ Accounts.onLogin (info) ->
     Meteor.users.update(info.user._id, {$set: {'profile.online': false}})
 
 Accounts.onCreateUser (options, user) ->
-  user.profile =
-    avatar: 'emerald'
-    color: '#300'
+  if !options.profile?
+    options.profile = {}
+  options.profile.character = 'emerald'
+  options.profile.color = '#300'
+  user.profile = options.profile
   return user

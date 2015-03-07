@@ -8,3 +8,6 @@ meteor-platform
 coffeescript
 less
 matdutour:progress-button
+accounts-base
+accounts-facebook
+service-configuration

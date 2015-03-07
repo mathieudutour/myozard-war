@@ -4,4 +4,4 @@ Template.main.helpers
   menu_road: () ->
     Session.get('page') is 'road'
   menu_challenge: () ->
-    Challenges.findOne({$and: [ {$or: [ {user1Id: @userId}, {user2Id: @userId} ] }, {acceptedAt: { $exists : true }}, {finishedAt: { $exists : false }} ] })?
+    Challenges.findOne({$and: [ {$or: [ {user1Id: Meteor.userId()}, {user2Id: Meteor.userId()} ] }, {acceptedAt: { $exists : true }}, {finishedAt: { $exists : false }} ] })?

@@ -7,3 +7,9 @@ Meteor.startup ->
     service: "facebook"
     appId: "849943885063275"
     secret: "2316435173957cd9044958740eee3307"
+  ServiceConfiguration.configurations.remove
+    service: "twitter"
+  ServiceConfiguration.configurations.insert
+    service: "twitter"
+    consumerKey: "KHpKKsjygfUQKJbJNkUoGcqY0"
+    secret: "07apXJbh0ZHcYoDCFXkjK4gxgdZYyXlulB0mMoZ3ugBbxWYgaR"

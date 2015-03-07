@@ -8,23 +8,51 @@
 }
 
 .player1 {
-  background: url(images/player1.png) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background: url(images/player1-prepare.gif) no-repeat;
   position: absolute;
-  width: 500px;
-  height: 500px;
-
+  width: 512px;
+  height: 512px;
+  bottom: 20px;
 }
 .player2 {
-  background: url(images/player2.png) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background: url(images/player2-prepare.gif) no-repeat;
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 512px;
+  height: 512px;
+  bottom: 20px;
+  right: 0;
+}
+
+.hud {
+
+  .vs {
+    position: absolute;
+    margin-left: ~"calc(50vw - 11.5px)";
+    line-height: 45px;
+  }
+  .player1hud, .player2hud {
+    width: 50%;
+    float: left;
+  }
+  .username {
+    line-height: 45px;
+  }
+  .life {
+    margin: 10px;
+    width: 25px;
+    height: 25px;
+    float: left;
+    fill: #333;
+    &.full {
+      fill: #e74c3c;
+    }
+  }
+  .player2hud{
+    .life {
+      float: right;
+    }
+    .username {
+      text-align: right;
+    }
+  }
 }

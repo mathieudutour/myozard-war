@@ -1,11 +1,8 @@
 <template name="road">
   <div class='background background-road'></div>
 
-  <button id='challenges-button'>Find other myozards</button>
   <button id='settings-button'>Settings</button>
-  {{#if showChallenges}}
   {{> listChallenges}}
-  {{/if}}
   {{#each requestChallenges}}
     <div class="requestChallenge" id="{{_id}}">{{username}} challenges you. Go kick his ass!</div>
   {{/each}}

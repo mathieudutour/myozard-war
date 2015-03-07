@@ -17,10 +17,8 @@ Template.road.events
     return false
 
 Template.road.helpers
-  showChallenges: () ->
-    Session.get('showChallenges') is true
   requestChallenges: () ->
-    Challenges.find({user2Id: @userId, acceptedAt: { $exists : false }} ).map (challenge) ->
+    Challenges.find({user2Id: Meteor.userId(), acceptedAt: { $exists : false }} ).map (challenge) ->
       challenge.username = Meteor.users.findOne(challenge.user1Id).profile.username
       return challenge
 

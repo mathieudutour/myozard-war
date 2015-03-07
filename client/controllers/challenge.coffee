@@ -1,0 +1,1 @@
+Template.challenge.rendered = () ->

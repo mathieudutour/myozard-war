@@ -1,0 +1,23 @@
+<template name="login">
+  <div class='background-gradient'>
+    <div class='home-logo'>
+    </div>
+    <form id="login-form" class="login-form form go-up">
+      <div>
+        <p class="error-form" id="error-serveur">Error. Try again :S</p>
+        <input type="text" id="login-username" placeholder="Username" />
+        <p class="error-form" id="user-not-found">Not a good username.</p>
+        <input type="password" id="login-password" placeholder="Password" />
+        <p class="error-form" id="password-incorrect">Wrong password.</p>
+        <div class="form-button">
+          {{#progress_button class="inverted" id="button" type="submit"}}
+            Login
+          {{/progress_button}}
+        </div>
+      </div>
+    </form>
+    <div class='home-by'>
+      <a class='inverse' href='#'>The group</a>
+    </div>
+  </div>
+</template>

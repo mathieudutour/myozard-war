@@ -1,0 +1,16 @@
+<template name="home">
+  {{> main}}
+</template>
+
+<template name='main'>
+  <div class='main'>
+  {{#if menu_challenge}}
+    {{> challenge}}
+  {{else}}{{#if menu_house}}
+    {{> house}}
+  {{else}}
+    {{> road}}
+  {{/if}}{{/if}}
+  </div>
+</template>
+

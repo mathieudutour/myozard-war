@@ -22,3 +22,22 @@
   margin-left: ~"calc(75vw - 100px)";
   margin-top: ~"calc(50vh - 75px)";
 }
+
+.dialog {
+  background: url(images/dialog.png) no-repeat;
+  width: 736px;
+  height: 490px;
+  position: absolute;
+  margin-left: ~"calc(50vw - 368px)";
+  margin-top: ~"calc(50vh - 245px)";
+
+  h1 {
+    text-align: center;
+    margin-top: 8px;
+  }
+  & > div {
+    margin: 0 2.5em;
+    max-height: 350px;
+    overflow-y: auto;
+  }
+}

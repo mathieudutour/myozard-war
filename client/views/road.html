@@ -12,11 +12,14 @@
 </template>
 
 <template name="listChallenges">
-  <div class="listChallenges">
+  <div class="listChallenges dialog">
+    <h1>Myozards</h1>
+    <div>
     {{#each availableUsers}}
     <div class="myozard" id="{{_id}}">{{profile.username}}</div>
     {{else}}
     No myozards there, sorry...
     {{/each}}
+    </div>
   </div>
 </template>

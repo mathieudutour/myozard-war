@@ -59,6 +59,21 @@ Template.challenge.helpers
 Template.challenge.rendered = () ->
   @autorun () ->
     deamon()
+    query = Challenges.findOne(Session.get('challenge'))
+    handle = query.observeChanges
+      changed: (id, fields) ->
+        if fields.player1Life?
+          $('.player1').addClass('damage')
+          Meteor.setTimeout( () ->
+            $('.player1').removeClass('damage')
+          , 1200)
+        else if fields.player2Life?
+          $('.player2').addClass('damage')
+          Meteor.setTimeout( () ->
+            $('.player2').removeClass('damage')
+          , 1200)
+
+
 
 ###
 #
@@ -103,10 +118,12 @@ failTurn = (moveId) ->
 
         Moves.update(moveId, {$set: {finishedAt: new Date()}})
         if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 and Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
-          Moves.insert
-            playerToPlay: currentMove.playerToPlay
-            createdAt: new Date()
-            challengeId: currentMove.challengeId
+          Meteor.setTimeout( () ->
+            Moves.insert
+              playerToPlay: currentMove.playerToPlay
+              createdAt: new Date()
+              challengeId: currentMove.challengeId
+            , 2000)
       else # means that we miss the spell
         nextPlayer = ((currentMove.playerToPlay % 2) + 1)
         console.log "fail spell. Current Player : #{currentMove.playerToPlay}. Next player : #{nextPlayer}"

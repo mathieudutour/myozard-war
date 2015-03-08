@@ -115,7 +115,7 @@ myo.on 'gyroscope', (data) ->
     hor = data.z
     reduce = 0.3
     rounding = 1
-    trigger = 50
+    trigger = 60
 
     if vert < -trigger and hor < trigger * reduce and hor > -trigger * reduce and previous != 1
       Session.set("lastMovement", 1)

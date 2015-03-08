@@ -4,6 +4,7 @@ soundEmbed = null
 @soundPlay = (which) ->
   if soundEmbed
     document.body.removeChild(soundEmbed)
+    soundEmbed = null
   if which?
     soundEmbed = document.createElement("audio")
     soundEmbed.setAttribute("src", "/sounds/"+which+".wav")

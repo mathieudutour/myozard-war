@@ -4,12 +4,13 @@ soundEmbed = null
 @soundPlay = (which) ->
   if soundEmbed
     document.body.removeChild(soundEmbed)
-  soundEmbed = document.createElement("audio")
-  soundEmbed.setAttribute("src", "/sounds/"+which+".wav")
-  soundEmbed.setAttribute("style", "display:none")
-  soundEmbed.setAttribute("autostart", true)
-  soundEmbed.setAttribute("loop", false)
-  document.body.appendChild(soundEmbed)
+  if which?
+    soundEmbed = document.createElement("audio")
+    soundEmbed.setAttribute("src", "/sounds/"+which+".wav")
+    soundEmbed.setAttribute("style", "display:none")
+    soundEmbed.setAttribute("autostart", true)
+    soundEmbed.setAttribute("loop", false)
+    document.body.appendChild(soundEmbed)
 
 Template.challenge.helpers
   challenge: () ->

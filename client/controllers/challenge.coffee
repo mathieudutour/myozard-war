@@ -80,9 +80,9 @@ failTurn = (moveId) ->
 
       if currentMove.playerToPlay is 1 and currentMove.player2 or currentMove.playerToPlay is 2 and currentMove.player1 # means that we miss the counter spell
         console.log "fail counterspell"
-        if currentMove.playerToPlay is 1
+        if currentMove.playerToPlay is 1 and damage(currentMove.player2, 0)
           Challenges.update(currentMove.challengeId, {$inc: {player1Life : -1}})
-        else
+        else if currentMove.playerToPlay is 2 and damage(currentMove.player1, 0)
           Challenges.update(currentMove.challengeId, {$inc: {player2Life : -1}})
 
         Moves.update(moveId, {$set: {finishedAt: new Date()}})

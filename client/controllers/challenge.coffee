@@ -55,6 +55,8 @@ deamon = () ->
   if currentChallenge
     currentMove = Moves.findOne({challengeId: currentChallenge._id, finishedAt: {$exists: false}})
     if currentMove? and ((!currentMove.player1 and currentMove.playerToPlay is 1 and currentChallenge.user1Id is Meteor.userId()) or (!currentMove.player2 and currentMove.playerToPlay is 2 and currentChallenge.user2Id is Meteor.userId()))
+      if myo?
+        myo.vibrate 'short'
       console.log "my turn now #{currentMove.playerToPlay}"
       Session.set("currentMove", currentMove._id)
       Meteor.setTimeout(

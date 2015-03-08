@@ -1,4 +1,4 @@
-myo = Myo.create()
+@myo = Myo.create()
 
 myo.on 'connected', () ->
   myo.setLockingPolicy('none')
@@ -9,10 +9,12 @@ gesture = new Array()
 index = 0
 
 @checkGesture = () ->
+  myo.vibrate 'short'
   id = -1
   i = 0
   while i < gestures.length
-    console.log gestures[i].indexOf(gesture)
+    console.log gestures[i]
+    console.log gesture
     if gestures[i].indexOf(gesture) isnt -1
       id = i
       break
@@ -49,15 +51,11 @@ myo.on 'fist', (edge)->
     Session.set('myoActive', true)
     myo.vibrate('short')
     console.log("movement recording")
-    index = 0
 
 myo.on 'fingers_spread', (edge) ->
   if edge and Session.get('myoActive') and Session.get("currentMove")?
     Session.set('myoActive', false)
-    myo.vibrate 'short'
     console.log 'finished movement recording'
-    index = 0
-
     checkGesture()
 
 myo.on 'gyroscope', (data) ->
@@ -71,41 +69,33 @@ myo.on 'gyroscope', (data) ->
     if vert < -trigger and hor < trigger * reduce and hor > -trigger * reduce and previous != 1
       console.log 'up'
       previous = 1
-      gesture[index] = previous
-      index++
+      gesture.push previous
     else if vert > trigger and hor < trigger * reduce and hor > -trigger * reduce and previous != 5
       console.log 'down'
       previous = 5
-      gesture[index] = previous
-      index++
+      gesture.push previous
     else if hor < -trigger and vert < trigger * reduce and vert > -trigger * reduce and previous != 3
       console.log 'rigth'
       previous = 3
-      gesture[index] = previous
-      index++
+      gesture.push previous
     else if hor > trigger and vert < trigger * reduce and vert > -trigger * reduce and previous != 7
       console.log 'left'
       previous = 7
-      gesture[index] = previous
-      index++
+      gesture.push previous
     else if vert < -trigger * rounding and hor < trigger * reduce and hor < -trigger * rounding and vert < trigger * reduce and previous != 2
       console.log 'up-rigth'
       previous = 2
-      gesture[index] = previous
-      index++
+      gesture.push previous
     else if vert < -trigger * rounding and hor > trigger * rounding and hor > -trigger * reduce and vert < trigger * reduce and previous != 8
       console.log 'up-left'
       previous = 8
-      gesture[index] = previous
-      index++
+      gesture.push previous
     else if vert > trigger * rounding and hor < trigger * reduce and hor < -trigger * rounding and vert > -trigger * reduce and previous != 4
       console.log 'down-rigth'
       previous = 4
-      gesture[index] = previous
-      index++
+      gesture.push previous
     else if vert > trigger * rounding and hor > trigger * rounding and hor > -trigger * reduce and vert > -trigger * reduce and previous != 6
       console.log 'down-left'
       previous = 6
-      gesture[index] = previous
-      index++
+      gesture.push previous
   return

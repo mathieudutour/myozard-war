@@ -13,8 +13,13 @@ index = 0
   id = -1
   i = 0
   while i < gestures.length
-    if _.contains(gestures[i], gesture)
-      id = i
+    j = 0
+    while j < gestures[i].length
+      if gestures[i][j] == gesture
+        id = i
+        break
+      ++j
+    if id isnt -1
       break
     ++i
   gesture = []

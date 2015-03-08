@@ -118,6 +118,7 @@ failTurn = (moveId) ->
         if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 and Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
           Meteor.setTimeout( () ->
             Moves.insert
+              _id: new Mongo.ObjectID()
               playerToPlay: currentMove.playerToPlay
               createdAt: new Date()
               challengeId: currentMove.challengeId

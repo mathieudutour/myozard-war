@@ -2,7 +2,7 @@ TIME_PER_TURN = 10000
 soundEmbed = null
 
 @soundPlay = (which) ->
-  if !soundEmbed
+  if soundEmbed
     document.body.removeChild(soundEmbed)
   soundEmbed = document.createElement("embed")
   soundEmbed.setAttribute("src", "/sounds/"+which+".wav")

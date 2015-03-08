@@ -55,7 +55,7 @@ myo.on 'gyroscope', (data) ->
     hor = data.z
     reduce = 0.3
     rounding = 1
-    trigger = 80
+    trigger = 50
 
     if vert < -trigger and hor < trigger * reduce and hor > -trigger * reduce and previous != 1
       console.log 'up'

@@ -8,6 +8,22 @@ previous = null
 gesture = new Array()
 index = 0
 
+arraysEqual = (a, b) ->
+  if a == b
+    return true
+  if a == null or b == null
+    return false
+  if a.length != b.length
+    return false
+  # If you don't care about the order of the elements inside
+  # the array, you should sort both arrays here.
+  i = 0
+  while i < a.length
+    if a[i] != b[i]
+      return false
+    ++i
+  true
+
 @checkGesture = () ->
   myo.vibrate 'short'
   id = -1
@@ -15,7 +31,7 @@ index = 0
   while i < gestures.length
     j = 0
     while j < gestures[i].length
-      if gestures[i][j] == gesture
+      if arraysEqual(gestures[i][j], gesture)
         id = i
         break
       ++j
@@ -24,6 +40,7 @@ index = 0
     ++i
   gesture = []
   previous = null
+  console.log "movement recognize : #{id}"
   if id >= 0
     launchSpell(id)
   return id >= 0

@@ -20,6 +20,7 @@ index = 0
       break
     ++i
   gesture = []
+  previous = null
   if id >= 0
     launchSpell(id)
   return id >= 0

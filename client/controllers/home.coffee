@@ -6,4 +6,7 @@ Template.main.helpers
   menu_over: () ->
     Challenges.findOne({$and: [ {$or: [ {user1Id: Meteor.userId()}, {user2Id: Meteor.userId()} ] }, {$or: [ {player1Life: 0}, {player2Life: 0} ] }, {acceptedAt: { $exists : true }}, {finishedAt: { $exists : false }} ] })?
   menu_challenge: () ->
-    Challenges.findOne({$and: [ {$or: [ {user1Id: Meteor.userId()}, {user2Id: Meteor.userId()} ] }, {acceptedAt: { $exists : true }}, {finishedAt: { $exists : false }} ] })?
+    challenge = Challenges.findOne({$and: [ {$or: [ {user1Id: Meteor.userId()}, {user2Id: Meteor.userId()} ] }, {acceptedAt: { $exists : true }}, {finishedAt: { $exists : false }} ] })
+    if challenge?
+      Session.set('challenge', challenge._id)
+    return challenge?

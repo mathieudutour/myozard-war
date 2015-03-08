@@ -18,4 +18,13 @@
   </div>
   <div class="player1"></div>
   <div class="player2"></div>
+  {{#if player1Spell}}
+  <div class="spellPlayer1" style="background-image: url(images/{{player1Spell}}.gif)"></div>
+  {{/if}}
+  {{#if player2Spell}}
+  <div class="spellPlayer2" style="background-image: url(images/{{player2Spell}}.gif)"></div>
+  {{/if}}
+  {{#if begin}}
+  <div class="begin"></div>
+  {{/if}}
 </template>

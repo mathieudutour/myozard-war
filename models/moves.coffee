@@ -3,9 +3,9 @@
 @Moves.allow
   insert: (userId, doc) ->
     # the user must be logged in
-    userId? and doc.userId is userId
+    userId?
   update: (userId, doc, fields, modifier) ->
-    no
+    userId?
   remove: (userId, doc) ->
     no
 

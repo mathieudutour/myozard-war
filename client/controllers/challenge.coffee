@@ -10,7 +10,6 @@ soundEmbed = null
     soundEmbed.setAttribute("src", "/sounds/"+which+".wav")
     soundEmbed.setAttribute("style", "display:none")
     soundEmbed.setAttribute("autoplay", true)
-    soundEmbed.setAttribute("loop", false)
     document.body.appendChild(soundEmbed)
 
 Template.challenge.helpers

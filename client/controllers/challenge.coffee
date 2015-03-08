@@ -73,31 +73,32 @@ deamon = () ->
 ###
 failTurn = (moveId) ->
   if Session.get("currentMove") is moveId # check if we are still in the same turn
-    currentMove = Moves.findOne(moveId)
+    if !checkGesture() #check if we have a gesture complete
+      currentMove = Moves.findOne(moveId)
 
-    if currentMove.playerToPlay is 1 and currentMove.player2 or currentMove.playerToPlay is 2 and currentMove.player1 # means that we miss the counter spell
-      console.log "fail counterspell"
-      if currentMove.playerToPlay is 1
-        Challenges.update(currentMove.challengeId, {$inc: {player1Life : -1}})
-      else
-        Challenges.update(currentMove.challengeId, {$inc: {player2Life : -1}})
+      if currentMove.playerToPlay is 1 and currentMove.player2 or currentMove.playerToPlay is 2 and currentMove.player1 # means that we miss the counter spell
+        console.log "fail counterspell"
+        if currentMove.playerToPlay is 1
+          Challenges.update(currentMove.challengeId, {$inc: {player1Life : -1}})
+        else
+          Challenges.update(currentMove.challengeId, {$inc: {player2Life : -1}})
 
-      Moves.update(moveId, {$set: {finishedAt: new Date()}})
-      if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 and Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
+        Moves.update(moveId, {$set: {finishedAt: new Date()}})
+        if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 and Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
+          Moves.insert
+            playerToPlay: currentMove.playerToPlay
+            createdAt: new Date()
+            challengeId: currentMove.challengeId
+      else # means that we miss the spell
+        nextPlayer = ((currentMove.playerToPlay % 2) + 1)
+        console.log "fail spell. Current Player : #{currentMove.playerToPlay}. Next player : #{nextPlayer}"
+        Moves.update(moveId, {$set: {finishedAt: new Date()}})
         Moves.insert
-          playerToPlay: currentMove.playerToPlay
+          playerToPlay: nextPlayer
           createdAt: new Date()
           challengeId: currentMove.challengeId
-    else # means that we miss the spell
-      nextPlayer = ((currentMove.playerToPlay % 2) + 1)
-      console.log "fail spell. Current Player : #{currentMove.playerToPlay}. Next player : #{nextPlayer}"
-      Moves.update(moveId, {$set: {finishedAt: new Date()}})
-      Moves.insert
-        playerToPlay: nextPlayer
-        createdAt: new Date()
-        challengeId: currentMove.challengeId
-    Session.set('myoActive', false)
-    Session.set("currentMove", null)
+      Session.set('myoActive', false)
+      Session.set("currentMove", null)
 
 ###
 #

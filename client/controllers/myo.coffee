@@ -8,6 +8,21 @@ previous = null
 gesture = new Array()
 index = 0
 
+@checkGesture = () ->
+  sp = gesture.toString()
+  gesture = []
+  id = -1
+
+  i = 0
+  while i < gestures.length
+    if gestures[i].indexOf(sp) isnt -1
+      id = i
+      break
+    ++i
+  if id >= 0
+    launchSpell(id)
+  return id >= 0
+
 # 1 -> up
 # 2 -> up-right
 # 3 -> right
@@ -35,6 +50,7 @@ myo.on 'fist', (edge)->
     Session.set('myoActive', true)
     myo.vibrate('short')
     console.log("movement recording")
+    index = 0
 
 myo.on 'fingers_spread', (edge) ->
   if edge and Session.get('myoActive') and Session.get("currentMove")?
@@ -43,19 +59,7 @@ myo.on 'fingers_spread', (edge) ->
     console.log 'finished movement recording'
     index = 0
 
-    sp = gesture.toString()
-    gesture = []
-    id = -1
-
-    i = 0
-    while i < gestures.length
-      if gestures[i].indexOf(sp) isnt -1
-        id = i
-        break
-      ++i
-    if id >= 0
-      launchSpell(id)
-    console.log id + '\n'
+    checkGesture()
 
 myo.on 'gyroscope', (data) ->
   if Session.get('myoActive')

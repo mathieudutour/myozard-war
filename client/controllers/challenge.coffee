@@ -9,7 +9,7 @@ soundEmbed = null
     soundEmbed = document.createElement("audio")
     soundEmbed.setAttribute("src", "/sounds/"+which+".wav")
     soundEmbed.setAttribute("style", "display:none")
-    soundEmbed.setAttribute("autostart", true)
+    soundEmbed.setAttribute("autoplay", true)
     soundEmbed.setAttribute("loop", false)
     document.body.appendChild(soundEmbed)
 

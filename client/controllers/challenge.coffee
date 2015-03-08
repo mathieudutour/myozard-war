@@ -118,11 +118,10 @@ failTurn = (moveId) ->
         if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 and Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
           Meteor.setTimeout( () ->
             Moves.insert
-              _id: new Mongo.ObjectID()
               playerToPlay: currentMove.playerToPlay
               createdAt: new Date()
               challengeId: currentMove.challengeId
-            , 2000)
+          , 2000)
       else # means that we miss the spell
         nextPlayer = ((currentMove.playerToPlay % 2) + 1)
         console.log "fail spell. Current Player : #{currentMove.playerToPlay}. Next player : #{nextPlayer}"

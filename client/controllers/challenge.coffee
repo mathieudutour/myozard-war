@@ -1,4 +1,4 @@
-TIME_PER_TURN = 15000
+TIME_PER_TURN = 5000
 soundEmbed = null
 
 @soundPlay = (which) ->

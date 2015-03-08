@@ -29,7 +29,7 @@
 	};
 
 	var quatInverse = function(q) {
-		var len = Math.sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w)
+		var len = Math.sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
 		return {
 			w: q.w/len,
 			x: -q.x/len,
@@ -60,7 +60,7 @@
 		},
 		'orientation' : function(myo, data){
 			myo._lastQuant = data.orientation;
-			ori = quatRotate(myo.orientationOffset, data.orientation);
+			var ori = quatRotate(myo.orientationOffset, data.orientation);
 			var imu_data = {
 				orientation : ori,
 				accelerometer : {
@@ -74,7 +74,7 @@
 					z : data.gyroscope[2]
 				}
 			};
-			if(!myo.lastIMU) myo.lastIMU = imu_data;
+			if(!myo.lastIMU) { myo.lastIMU = imu_data; }
 			myo.trigger('orientation',   imu_data.orientation);
 			myo.trigger('accelerometer', imu_data.accelerometer);
 			myo.trigger('gyroscope',     imu_data.gyroscope);
@@ -120,7 +120,7 @@
 		var self = this;
 		//
 		events.map(function(event){
-			if(event.name == eventName) event.fn.apply(self, args);
+			if(event.name == eventName) { event.fn.apply(self, args); }
 			if(event.name == '*'){
 				args.unshift(eventName);
 				event.fn.apply(self, args);
@@ -214,7 +214,7 @@
 					"type": "timed"
 				}]));
 			}
-			if(!this.isLocked) return this;
+			if(!this.isLocked) { return this; }
 			this.isLocked = false;
 			this.trigger('unlock');
 			return this;
@@ -250,7 +250,7 @@
 		},
 		streamEMG : function(enabled){
 			var type = 'enabled';
-			if(enabled === false) type = 'disabled';
+			if(enabled === false) { type = 'disabled'; }
 			Myo.socket.send(JSON.stringify(['command',{
 				"command": "set_stream_emg",
 				"myo": this.id,
@@ -261,7 +261,7 @@
 	};
 
 
-	Myo = {
+	var Myo = {
 		options : {
 			api_version : 3,
 			socket_url  : "ws://127.0.0.1:10138/myo/"
@@ -276,10 +276,10 @@
 		 * @return {myo}
 		 */
 		create : function(id, options){
-			if(!Myo.socket) Myo.initSocket();
+			if(!Myo.socket) { Myo.initSocket(); }
 
-			if(!id) id = 0;
-			if(typeof id === "object") options = id;
+			if(!id) { id = 0; }
+			if(typeof id === "object") { options = id; }
 			options = options || {};
 
 			var newMyo = Object.create(myoInstance);
@@ -310,4 +310,5 @@
 		}
 	};
 	if(typeof module !== 'undefined') module.exports = Myo;
+    window.Myo = Myo;
 })();

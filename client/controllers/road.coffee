@@ -20,6 +20,7 @@ Template.road.events
         acceptedAt: new Date()
         playing: true
     )
+    Challenges.remove({$and: [ {$or: [ {user1Id: Meteor.userId()}, {user2Id: Meteor.userId()} ] }, {acceptedAt: { $exists : false }} ] })
     return false
 
 Template.road.helpers

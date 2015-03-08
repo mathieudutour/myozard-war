@@ -4,9 +4,9 @@ soundEmbed = null
 @soundPlay = (which) ->
   if soundEmbed
     document.body.removeChild(soundEmbed)
-  soundEmbed = document.createElement("embed")
+  soundEmbed = document.createElement("audio")
   soundEmbed.setAttribute("src", "/sounds/"+which+".wav")
-  soundEmbed.setAttribute("hidden", true)
+  soundEmbed.setAttribute("style", "display:none")
   soundEmbed.setAttribute("autostart", true)
   soundEmbed.setAttribute("loop", false)
   document.body.appendChild(soundEmbed)

@@ -35,11 +35,12 @@ Template.listChallenges.helpers
 Template.listChallenges.events
   'click .myozard' : (e, t) ->
     e.preventDefault()
-    Challenges.insert
-      user1Id: Meteor.userId()
-      user2Id: e.currentTarget.id
-      createdAt: new Date()
-      playing: false
-      player1Life: 5
-      player2Life: 5
+    if !Challenges.findOne({$and: [ {$or: [ {user1Id: Meteor.userId()}, {user2Id: Meteor.userId()} ] }, {acceptedAt: { $exists : false }} ] })?
+      Challenges.insert
+        user1Id: Meteor.userId()
+        user2Id: e.currentTarget.id
+        createdAt: new Date()
+        playing: false
+        player1Life: 5
+        player2Life: 5
     return false

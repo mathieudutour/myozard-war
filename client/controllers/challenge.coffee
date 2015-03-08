@@ -59,7 +59,7 @@ Template.challenge.helpers
 Template.challenge.rendered = () ->
   @autorun () ->
     deamon()
-    query = Challenges.findOne(Session.get('challenge'))
+    query = Challenges.find(Session.get('challenge'))
     handle = query.observeChanges
       changed: (id, fields) ->
         if fields.player1Life?
@@ -72,8 +72,6 @@ Template.challenge.rendered = () ->
           Meteor.setTimeout( () ->
             $('.player2').removeClass('damage')
           , 1200)
-
-
 
 ###
 #

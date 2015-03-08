@@ -8,6 +8,20 @@ previous = null
 gesture = new Array()
 index = 0
 
+gestures = [
+  ['3,6,2,4,8', '6,2,4,8,3', '2,4,8,3,6', '4,8,3,6,2', '8,3,6,2,4'], # super spell
+  ['2,4,7', '4,7,2', '7,2,4'], # cat
+  ['1,3,5,7', '3,5,7,1', '5,7,1,3', '7,1,3,5'], # sheep
+  ['3,6,3,8', '6,3,8,3', '3,8,3,6', '8,3,6,3'], # unicorn
+  ['3,5,3,5,8', '5,3,5,8,3', '3,5,8,3,5', '5,8,3,5,3', '8,3,5,3,5'], # underwears
+  ['1,4,1,4,7', '4,1,4,7,1', '1,4,7,1,4', '4,7,1,4,1', '7,1,4,1,4'], # dress
+  ['6,8,2,4', '8,2,4,6', '2,4,6,8', '4,6,8,2'], # counter cat
+  ['2,3,6,7', '3,6,7,2', '6,7,2,3', '7,2,3,6'], # counter sheep
+  ['1,4,1,6', '4,1,6,1', '1,6,1,4', '6,1,4,1'], # counter unicorn
+  ['7,5,7,5,2', '5,7,5,2,7', '7,5,2,7,5', '5,2,7,5,7', '2,7,5,7,5'], # counter underwears
+  ['5,8,5,8,3', '8,5,8,3,5', '5,8,3,5,8', '8,3,5,8,5', '3,5,8,5,8'] # counter dress
+]
+
 myo.on 'fist', (edge)->
   if(edge and !active)
     active = true
@@ -24,29 +38,13 @@ myo.on 'fingers_spread', (edge) ->
     sp = gesture.toString()
     gesture = []
     id = -1
-    if sp == '3,6,2,4,8' or sp == '6,2,4,8,3' or sp == '2,4,8,3,6' or sp == '4,8,3,6,2' or sp == '8,3,6,2,4'
-      id = 0
-    else if sp == '2,4,7' or sp == '4,7,2' or sp == '7,2,4'
-      id = 1
-    else if sp == '1,3,5,7' or sp == '3,5,7,1' or sp == '5,7,1,3' or sp == '7,1,3,5'
-      id = 2
-    else if sp == '3,6,3,8' or sp == '6,3,8,3' or sp == '3,8,3,6' or sp == '8,3,6,3'
-      id = 3
-    else if sp == '3,5,3,5,8' or sp == '5,3,5,8,3' or sp == '3,5,8,3,5' or sp == '5,8,3,5,3' or sp == '8,3,5,3,5'
-      id = 4
-    else if sp == '1,4,1,4,7' or sp == '4,1,4,7,1' or sp == '1,4,7,1,4' or sp == '4,7,1,4,1' or sp == '7,1,4,1,4'
-      id = 5
-    else if sp == '6,8,2,4' or sp == '8,2,4,6' or sp == '2,4,6,8' or sp == '4,6,8,2'
-      id = 6
-    else if sp == '2,3,6,7' or sp == '3,6,7,2' or sp == '6,7,2,3' or sp == '7,2,3,6'
-      id = 7
-    else if sp == '1,4,1,6' or sp == '4,1,6,1' or sp == '1,6,1,4' or sp == '6,1,4,1'
-      id = 8
-    else if sp == '7,5,7,5,2' or sp == '5,7,5,2,7' or sp == '7,5,2,7,5' or sp == '5,2,7,5,7' or sp == '2,7,5,7,5'
-      id = 9
-    else if sp == '5,8,5,8,3' or sp == '8,5,8,3,5' or sp == '5,8,3,5,8' or sp == '8,3,5,8,5' or sp == '3,5,8,5,8'
-      id = 10
-    # counter - dress
+
+    i = 0
+    while i < gestures.length
+      if gestures[i].indexOf(sp) isnt -1
+        id = i
+        break
+      ++i
 
     console.log id + '\n'
 

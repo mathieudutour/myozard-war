@@ -74,8 +74,8 @@
   width: 660px;
   height: 216px;
   position: absolute;
-  margin-left: ~"calc(50vw - 330px)";
-  margin-top: ~"calc(50vh - 108px)";
+  margin: ~"calc(50vw - 330px)";
+  margin: ~"calc(50vh - 108px)";
 }
 .begin {
   background: url(images/ready.gif) no-repeat;
@@ -91,7 +91,7 @@
 
   .vs {
     position: absolute;
-    margin-left: ~"calc(50vw - 11.5px)";
+    margin: ~"calc(50vw - 11.5px)";
     line-height: 45px;
   }
   .player1hud, .player2hud {
@@ -120,7 +120,14 @@
     }
   }
 }
-
+.movement {
+  background: url(images/movement/null.gif) no-repeat;
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  left: ~"calc(50vw - 150px)";
+  top: ~"calc(50vh - 150px)";
+}
 .timer {
   position: absolute;
   width: 100%;

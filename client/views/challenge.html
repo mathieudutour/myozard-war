@@ -19,15 +19,20 @@
   <div class="player1"></div>
   <div class="player2"></div>
   {{#if player1Spell}}
-  <div class="spellPlayer1" style="background-image: url(images/{{player1Spell}}.gif)"></div>
+  <div class="spellPlayer1" style="background-image: url(images/spells/{{player1Spell}}.gif)"></div>
   {{/if}}
   {{#if player2Spell}}
-  <div class="spellPlayer2" style="background-image: url(images/{{player2Spell}}.gif)"></div>
+  <div class="spellPlayer2" style="background-image: url(images/spells/{{player2Spell}}.gif)"></div>
   {{/if}}
   {{#if begin}}
   <div class="begin"></div>
   {{/if}}
   {{#if playing}}
+  {{#if lastMovement}}
+    <div class="movement" style="background-image: url(images/movements/{{lastMovement}}.gif)"></div>
+  {{else}}
+    <div class="movement" style="background-image: url(images/movements/null.gif)"></div>
+  {{/if}}
   <div class="timer"></div>
   {{/if}}
 </template>

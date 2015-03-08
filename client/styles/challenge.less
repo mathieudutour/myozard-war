@@ -1,3 +1,5 @@
+@import "common/variables.less";
+
 .background-challenge {
   background: url(images/background-challenge.png) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -16,6 +18,12 @@
   &.dead {
     background: url(images/player1-dead.gif) no-repeat;
   }
+  &.attack {
+    background: url(images/player1-attack.gif) no-repeat;
+  }
+  &.damage {
+    background: url(images/player1-damage.gif) no-repeat;
+  }
   &.congrats {
     background: url(images/player1-celebrate.gif) no-repeat;
   }
@@ -30,27 +38,35 @@
   &.dead {
     background: url(images/player2-dead.gif) no-repeat;
   }
+  &.attack {
+    background: url(images/player2-attack.gif) no-repeat;
+  }
+  &.damage {
+    background: url(images/player2-damage.gif) no-repeat;
+  }
   &.congrats {
     background: url(images/player2-celebrate.gif) no-repeat;
   }
 }
 
 .spellPlayer1 {
-  background: url(images/0.gif) no-repeat;
+  background: url(images/spells/1.gif) no-repeat;
   position: absolute;
   width: 624px;
   height: 624px;
   bottom: 20px;
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
+  .animation(spell1 10000ms linear forwards);
 }
 .spellPlayer2 {
-  background: url(images/0.gif) no-repeat;
+  background: url(images/spells/1.gif) no-repeat;
   position: absolute;
   width: 624px;
   height: 624px;
   bottom: 20px;
   right: 0;
+  .animation(spell2 10000ms linear forwards);
 }
 
 .begin, .win, .loose {
@@ -112,8 +128,7 @@
   left: 0;
   height: 15px;
   background: #e74c3c;
-  -webkit-animation:  timer 10000ms linear forwards;
-  animation:          timer 10000ms linear forwards;
+  .animation(timer 10000ms linear forwards);
 }
 
 @-webkit-keyframes timer {
@@ -123,4 +138,22 @@
 @keyframes timer {
   from {width: 100%;}
   to {width: 0%;}
+}
+
+@-webkit-keyframes spell1 {
+  from {.translate(0,0);}
+  to {.translate(100%,0);}
+}
+@keyframes spell1 {
+  from {.translate(0,0);}
+  to {.translate(100%,0);}
+}
+
+@-webkit-keyframes spell2 {
+  from {.translate(0,0);}
+  to {.translate(-100%,0);}
+}
+@keyframes spell2 {
+  from {.translate(0,0);}
+  to {.translate(-100%,0);}
 }

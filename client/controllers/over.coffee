@@ -28,6 +28,7 @@ Template.over.helpers
     currentChallenge.player1Life > 0 and currentChallenge.user1Id is Meteor.userId() or currentChallenge.player2Life > 0 and currentChallenge.user2Id is Meteor.userId()
 
 Template.over.rendered = () ->
+  soundPlay "end"
   Meteor.setTimeout( () ->
     Challenges.update(Session.get('challenge'), {$set: {finishedAt : new Date()}})
     Session.set('challenge', null)

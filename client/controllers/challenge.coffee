@@ -1,4 +1,15 @@
 TIME_PER_TURN = 10000
+soundEmbed = null
+
+@soundPlay = (which) ->
+  if !soundEmbed
+    document.body.removeChild(soundEmbed)
+  soundEmbed = document.createElement("embed")
+  soundEmbed.setAttribute("src", "/sounds/"+which+".wav")
+  soundEmbed.setAttribute("hidden", true)
+  soundEmbed.setAttribute("autostart", true)
+  soundEmbed.setAttribute("loop", false)
+  document.body.appendChild(soundEmbed)
 
 Template.challenge.helpers
   challenge: () ->
@@ -32,14 +43,18 @@ Template.challenge.helpers
     currentChallenge = Challenges.findOne(Session.get('challenge'))
     currentMoves = Moves.findOne({challengeId: currentChallenge._id, finishedAt: {$exists: false}})
     if currentMoves?
+      soundPlay currentMoves.player1
       currentMoves.player1
   player2Spell: () ->
     currentChallenge = Challenges.findOne(Session.get('challenge'))
     currentMoves = Moves.findOne({challengeId: currentChallenge._id, finishedAt: {$exists: false}})
     if currentMoves?
+      soundPlay currentMoves.player2
       currentMoves.player2
   playing: () ->
     Session.get("currentMove")?
+  lastMovement: () ->
+    Session.get("lastMovement")
 
 Template.challenge.rendered = () ->
   @autorun () ->
@@ -122,21 +137,20 @@ failTurn = (moveId) ->
     else
       Moves.update(currentMove._id, {$set: {player2: spellId}})
 
-    if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 and Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
-      Meteor.setTimeout( () ->
-        # if it was a wrong counterspell
-        if currentMove.playerToPlay is 1 and damage(currentMove.player2, spellId)
-          Challenges.update(currentMove.challengeId, {$inc: {player1Life : -1}})
-        else if currentMove.playerToPlay is 2 and damage(currentMove.player1, spellId)
-          Challenges.update(currentMove.challengeId, {$inc: {player2Life : -1}})
+    Meteor.setTimeout( () ->
+      # if it was a wrong counterspell
+      if currentMove.playerToPlay is 1 and damage(currentMove.player2, spellId)
+        Challenges.update(currentMove.challengeId, {$inc: {player1Life : -1}})
+      else if currentMove.playerToPlay is 2 and damage(currentMove.player1, spellId)
+        Challenges.update(currentMove.challengeId, {$inc: {player2Life : -1}})
 
-        Moves.update(currentMove._id, {$set: {finishedAt: new Date()}})
-
+      Moves.update(currentMove._id, {$set: {finishedAt: new Date()}})
+      if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 and Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
         Moves.insert
           playerToPlay: currentMove.playerToPlay
           createdAt: new Date()
           challengeId: currentMove.challengeId
-      , 3000)
+    , 3000)
 
   else # means that we launch the spell
     console.log "launch spell"

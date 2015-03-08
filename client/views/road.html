@@ -4,12 +4,12 @@
   <!--<button id='settings-button'>Settings</button>-->
   {{> listChallenges}}
   {{#each requestChallenges}}
-    <div class="requestChallenge dialog-small" id="{{_id}}">{{username}} challenges you. Go kick his ass!</div>
+    <div class="requestChallenge dialog-small go-right" id="{{_id}}">{{username}} challenges you. Go kick his ass!</div>
   {{/each}}
 </template>
 
 <template name="listChallenges">
-  <div class="listChallenges dialog">
+  <div class="listChallenges dialog go-up">
     <h1>Myozards</h1>
     <div>
     {{#each availableUsers}}

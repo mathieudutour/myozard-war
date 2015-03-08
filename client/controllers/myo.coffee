@@ -40,6 +40,7 @@ arraysEqual = (a, b) ->
     ++i
   gesture = []
   previous = null
+  Session.set("lastMovement", null)
   console.log "movement recognize : #{id}"
   if id >= 0
     launchSpell(id)
@@ -66,12 +67,41 @@ gestures = [
   [[7,5,7,5,2], [5,7,5,2,7], [7,5,2,7,5], [5,2,7,5,7], [2,7,5,7,5]], # counter underwears
   [[5,8,5,8,3], [8,5,8,3,5], [5,8,3,5,8], [8,3,5,8,5], [3,5,8,5,8]] # counter dress
 ]
+alphabet = [
+  ["2,4","4,2"],	# A
+  ["1,4,6,4,6","4,6,4,6,1","5,2,8,2,8","2,8,2,8,5"],	# B
+  ["6,4","4,6","7,5,3","3,5,7"],	# C
+  ["4,6,1","1,4,6","5,2,8","2,8,5"],	# D
+  ["6,4,6,4","8,2,8,2","7,5,3,7,5,3","7,1,3,7,1,3"],	# E
+  ["7,5","5,7","7,5,3,7,5","1,3,7,1,3"],	# F
+  ["7,5,3,1,7"],	# G
+  ["5,2,4"],	# H
+  ["5","1"],	# I
+  ["5,7","3,1"],	# J
+  ["5,2,6,4","5,4,8,2"],	# K
+  ["5,3","7,1"],	# L
+  ["1,4,2,5","2,4,2,4"],	# M
+  ["1,4,1"],	# N
+  ["5,3,1,7","3,1,7,5","1,7,5,3","7,5,3,1","1,3,5,7","3,5,7,1","5,7,1,3","7,1,3,5"],	# O
+  ["1,3,6"],	#P
+  ["1,7,5,3,4","7,1,3,5,4","4,1,7,5,3","4,7,1,3,5"],	# Q
+  ["1,3,5,7,4","1,3,4,7,4"],	# R
+  ["7,5,3,5,7","3,1,7,1,3"],	# S
+  ["1,7","1,8,3","1,2,7"],	# T
+  ["5,3,1","5,7,1"],	# U
+  ["4,2","6,8"],	# V
+  ["4,2,4,2","6,8,6,8"],	# W
+  ["4,7,2","6,3,8","8,5,2","6,1,4"],	# X
+  ["1,8,4,2","1,2,6,8","4,2,6,5","6,8,4,5"],	# Y
+  ["3,6,3","7,2,7"]
+]	# Z
 
 myo.on 'fist', (edge)->
   if edge and !Session.get('myoActive') and Session.get("currentMove")?
     Session.set('myoActive', true)
     myo.vibrate('short')
     console.log("movement recording")
+    Session.set("lastMovement", null)
 
 myo.on 'fingers_spread', (edge) ->
   if edge and Session.get('myoActive') and Session.get("currentMove")?
@@ -88,34 +118,42 @@ myo.on 'gyroscope', (data) ->
     trigger = 50
 
     if vert < -trigger and hor < trigger * reduce and hor > -trigger * reduce and previous != 1
+      Session.set("lastMovement", 1)
       console.log 'up'
       previous = 1
       gesture.push previous
     else if vert > trigger and hor < trigger * reduce and hor > -trigger * reduce and previous != 5
+      Session.set("lastMovement", 5)
       console.log 'down'
       previous = 5
       gesture.push previous
     else if hor < -trigger and vert < trigger * reduce and vert > -trigger * reduce and previous != 3
+      Session.set("lastMovement", 3)
       console.log 'rigth'
       previous = 3
       gesture.push previous
     else if hor > trigger and vert < trigger * reduce and vert > -trigger * reduce and previous != 7
+      Session.set("lastMovement", 7)
       console.log 'left'
       previous = 7
       gesture.push previous
     else if vert < -trigger * rounding and hor < trigger * reduce and hor < -trigger * rounding and vert < trigger * reduce and previous != 2
+      Session.set("lastMovement", 2)
       console.log 'up-rigth'
       previous = 2
       gesture.push previous
     else if vert < -trigger * rounding and hor > trigger * rounding and hor > -trigger * reduce and vert < trigger * reduce and previous != 8
+      Session.set("lastMovement", 8)
       console.log 'up-left'
       previous = 8
       gesture.push previous
     else if vert > trigger * rounding and hor < trigger * reduce and hor < -trigger * rounding and vert > -trigger * reduce and previous != 4
+      Session.set("lastMovement", 4)
       console.log 'down-rigth'
       previous = 4
       gesture.push previous
     else if vert > trigger * rounding and hor > trigger * rounding and hor > -trigger * reduce and vert > -trigger * reduce and previous != 6
+      Session.set("lastMovement", 6)
       console.log 'down-left'
       previous = 6
       gesture.push previous

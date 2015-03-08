@@ -115,7 +115,7 @@ failTurn = (moveId) ->
           playerToPlay: nextPlayer
           createdAt: new Date()
           challengeId: currentMove.challengeId
-      Session.set('myoActive', false)
+      #Session.set('myoActive', false)
       Session.set("currentMove", null)
 
 ###
@@ -158,7 +158,7 @@ failTurn = (moveId) ->
       Moves.update(currentMove._id, {$set: {player1: spellId, playerToPlay: 2, playedAt: new Date()}})
     else
       Moves.update(currentMove._id, {$set: {player2: spellId, playerToPlay: 1, playedAt: new Date()}})
-  Session.set('myoActive', false)
+  #Session.set('myoActive', false)
   Session.set("currentMove", null)
 
 damage = (attackSpell, counterSpell) ->

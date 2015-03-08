@@ -3,7 +3,7 @@
 myo.on 'connected', () ->
   myo.setLockingPolicy('none')
 
-Session.set('myoActive', false)
+#Session.set('myoActive', false)
 previous = null
 gesture = new Array()
 index = 0
@@ -96,7 +96,7 @@ alphabet = [
   ["3,6,3","7,2,7"]
 ]	# Z
 
-myo.on 'fist', (edge)->
+###myo.on 'fist', (edge)->
   if edge and !Session.get('myoActive') and Session.get("currentMove")?
     Session.set('myoActive', true)
     myo.vibrate('short')
@@ -108,9 +108,9 @@ myo.on 'fingers_spread', (edge) ->
     Session.set('myoActive', false)
     console.log 'finished movement recording'
     checkGesture()
-
+###
 myo.on 'gyroscope', (data) ->
-  if Session.get('myoActive')
+  if Session.get("currentMove")?
     vert = data.y
     hor = data.z
     reduce = 0.3

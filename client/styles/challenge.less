@@ -13,6 +13,12 @@
   width: 512px;
   height: 512px;
   bottom: 20px;
+  &.dead {
+    background: url(images/player1-dead.gif) no-repeat;
+  }
+  &.congrats {
+    background: url(images/player1-celebrate.gif) no-repeat;
+  }
 }
 .player2 {
   background: url(images/player2-prepare.gif) no-repeat;
@@ -21,6 +27,12 @@
   height: 512px;
   bottom: 20px;
   right: 0;
+  &.dead {
+    background: url(images/player2-dead.gif) no-repeat;
+  }
+  &.congrats {
+    background: url(images/player2-celebrate.gif) no-repeat;
+  }
 }
 
 .spellPlayer1 {
@@ -29,6 +41,8 @@
   width: 624px;
   height: 624px;
   bottom: 20px;
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 .spellPlayer2 {
   background: url(images/0.gif) no-repeat;
@@ -39,13 +53,22 @@
   right: 0;
 }
 
-.begin {
+.begin, .win, .loose {
   background: url(images/ready.gif) no-repeat;
   width: 660px;
   height: 216px;
   position: absolute;
   margin-left: ~"calc(50vw - 330px)";
   margin-top: ~"calc(50vh - 108px)";
+}
+.begin {
+  background: url(images/ready.gif) no-repeat;
+}
+.win {
+  background: url(images/win.png) no-repeat;
+}
+.loose {
+  background: url(images/loose.png) no-repeat;
 }
 
 .hud {

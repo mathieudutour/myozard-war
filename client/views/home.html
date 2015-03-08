@@ -4,13 +4,15 @@
 
 <template name='main'>
   <div class='main'>
-  {{#if menu_challenge}}
+  {{#if menu_over}}
+    {{> over}}
+  {{else}}{{#if menu_challenge}}
     {{> challenge}}
   {{else}}{{#if menu_house}}
     {{> house}}
   {{else}}
     {{> road}}
-  {{/if}}{{/if}}
+  {{/if}}{{/if}}{{/if}}
   </div>
 </template>
 

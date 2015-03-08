@@ -1,4 +1,4 @@
-TIME_PER_TURN = 5000
+TIME_PER_TURN = 10000
 
 Template.challenge.helpers
   challenge: () ->
@@ -83,7 +83,7 @@ failTurn = (moveId) ->
         Challenges.update(currentMove.challengeId, {$inc: {player2Life : -1}})
 
       Moves.update(moveId, {$set: {finishedAt: new Date()}})
-      if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 or Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
+      if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 and Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
         Moves.insert
           playerToPlay: currentMove.playerToPlay
           createdAt: new Date()
@@ -106,37 +106,40 @@ failTurn = (moveId) ->
 #
 ###
 @launchSpell = (spellId) ->
-  currentMove = Moves.findOne(moveId)
+  currentMove = Moves.findOne(Session.get('currentMove'))
 
   if currentMove.playerToPlay is 1 and currentMove.player2 or currentMove.playerToPlay is 2 and currentMove.player1 # means that we launch a counter spell
     console.log "launch counterspell"
-    # if it was a wrong counterspell
-    if currentMove.playerToPlay is 1 and damage(currentMove.player2, spellId)
-      Challenges.update(currentMove.challengeId, {$inc: {player1Life : -1}})
-    else if currentMove.playerToPlay is 2 and damage(currentMove.player1, spellId)
-      Challenges.update(currentMove.challengeId, {$inc: {player2Life : -1}})
 
     if currentMove.playerToPlay is 1
-      Moves.update(moveId, {$set: {player1: spellId, finishedAt: new Date()}})
+      Moves.update(currentMove._id, {$set: {player1: spellId}})
     else
-      Moves.update(moveId, {$set: {player2: spellId, finishedAt: new Date()}})
+      Moves.update(currentMove._id, {$set: {player2: spellId}})
 
-    if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 or Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
+    if Challenges.findOne(currentMove.challengeId).player1Life isnt 0 and Challenges.findOne(currentMove.challengeId).player2Life isnt 0 # if we haven't finish, then new move
       Meteor.setTimeout( () ->
+        # if it was a wrong counterspell
+        if currentMove.playerToPlay is 1 and damage(currentMove.player2, spellId)
+          Challenges.update(currentMove.challengeId, {$inc: {player1Life : -1}})
+        else if currentMove.playerToPlay is 2 and damage(currentMove.player1, spellId)
+          Challenges.update(currentMove.challengeId, {$inc: {player2Life : -1}})
+
+        Moves.update(currentMove._id, {$set: {finishedAt: new Date()}})
+
         Moves.insert
           playerToPlay: currentMove.playerToPlay
           createdAt: new Date()
           challengeId: currentMove.challengeId
-      , 3000)
+      , 5000)
 
   else # means that we launch the spell
     console.log "launch spell"
     if currentMove.playerToPlay is 1
-      Moves.update(moveId, {$set: {player1: spellId, playedAt: new Date()}})
+      Moves.update(currentMove._id, {$set: {player1: spellId, playerToPlay: 2, playedAt: new Date()}})
     else
-      Moves.update(moveId, {$set: {player2: spellId, playedAt: new Date()}})
+      Moves.update(currentMove._id, {$set: {player2: spellId, playerToPlay: 1, playedAt: new Date()}})
   Session.set('myoActive', false)
   Session.set("currentMove", null)
 
 damage = (attackSpell, counterSpell) ->
-  attackSpell is 0 or attackSpell >= 1 and attackSpell <= 5 and counterSpell >= 6 and counterSpell <= 10 and counterSpell - attackSpell is 5
+  attackSpell < 1 or attackSpell < 6 and (counterSpell < 6 or counterSpell > 10 or counterSpell - attackSpell isnt 5)

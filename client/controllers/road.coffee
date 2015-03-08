@@ -9,6 +9,12 @@ Template.road.events
     return false
   'click .requestChallenge': (e, t) ->
     e.preventDefault()
+    Meteor.setTimeout(() ->
+      Moves.insert
+        playerToPlay: 1
+        createdAt: new Date()
+        challengeId: e.currentTarget.id
+    , 5000)
     Challenges.update(e.currentTarget.id,
       $set:
         acceptedAt: new Date()

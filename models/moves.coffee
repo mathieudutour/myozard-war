@@ -12,9 +12,13 @@
 ###
 {
   "_id": ObjectId,
-  "userId": ObjectId,
+  "player1": String,
+  "player2": String,
+  "playerToPlay": Number (1 or 2),
   "type": String,
-  "timestamp": Date,
+  "createdAt": Date
+  "playedAt": Date
+  "finishedAt": Date,
   "challengeId": ObjectId
 }
 ###

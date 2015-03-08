@@ -12,6 +12,7 @@ index = 0
   id = -1
   i = 0
   while i < gestures.length
+    console.log gestures[i].indexOf(gesture)
     if gestures[i].indexOf(gesture) isnt -1
       id = i
       break

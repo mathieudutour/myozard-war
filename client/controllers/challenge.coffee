@@ -64,12 +64,12 @@ Template.challenge.rendered = () ->
       changed: (id, fields) ->
         if fields.player1Life?
           $('.player1').addClass('damage')
-          Meteor.setTimeout( () ->
+          setTimeout( () ->
             $('.player1').removeClass('damage')
           , 1200)
         else if fields.player2Life?
           $('.player2').addClass('damage')
-          Meteor.setTimeout( () ->
+          setTimeout( () ->
             $('.player2').removeClass('damage')
           , 1200)
 

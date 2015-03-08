@@ -135,7 +135,7 @@ failTurn = (moveId) ->
           playerToPlay: currentMove.playerToPlay
           createdAt: new Date()
           challengeId: currentMove.challengeId
-      , 5000)
+      , 3000)
 
   else # means that we launch the spell
     console.log "launch spell"

@@ -1,10 +1,10 @@
 <template name="road">
   <div class='background background-road'></div>
 
-  <button id='settings-button'>Settings</button>
+  <!--<button id='settings-button'>Settings</button>-->
   {{> listChallenges}}
   {{#each requestChallenges}}
-    <div class="requestChallenge" id="{{_id}}">{{username}} challenges you. Go kick his ass!</div>
+    <div class="requestChallenge dialog-small" id="{{_id}}">{{username}} challenges you. Go kick his ass!</div>
   {{/each}}
 </template>
 

@@ -8,6 +8,14 @@ previous = null
 gesture = new Array()
 index = 0
 
+# 1 -> up
+# 2 -> up-right
+# 3 -> right
+# 4 -> down-right
+# 5 -> down-right
+# 6 -> down-left
+# 7 -> left
+# 8 -> up-left
 gestures = [
   ['3,6,2,4,8', '6,2,4,8,3', '2,4,8,3,6', '4,8,3,6,2', '8,3,6,2,4'], # super spell
   ['2,4,7', '4,7,2', '7,2,4'], # cat

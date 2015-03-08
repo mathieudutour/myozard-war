@@ -106,6 +106,8 @@ failTurn = (moveId) ->
 #
 ###
 @launchSpell = (spellId) ->
+  if spellId is 0
+    spellId = 11
   currentMove = Moves.findOne(Session.get('currentMove'))
 
   if currentMove.playerToPlay is 1 and currentMove.player2 or currentMove.playerToPlay is 2 and currentMove.player1 # means that we launch a counter spell
@@ -142,4 +144,4 @@ failTurn = (moveId) ->
   Session.set("currentMove", null)
 
 damage = (attackSpell, counterSpell) ->
-  attackSpell < 1 or attackSpell < 6 and (counterSpell < 6 or counterSpell > 10 or counterSpell - attackSpell isnt 5)
+  attackSpell is 11 or attackSpell < 6 and (counterSpell < 6 or counterSpell > 10 or counterSpell - attackSpell isnt 5)

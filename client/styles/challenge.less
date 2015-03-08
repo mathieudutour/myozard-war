@@ -104,3 +104,23 @@
     }
   }
 }
+
+.timer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 15px;
+  background: #e74c3c;
+  -webkit-animation:  timer 10000ms linear forwards;
+  animation:          timer 10000ms linear forwards;
+}
+
+@-webkit-keyframes timer {
+  from {width: 100%;}
+  to {width: 0%;}
+}
+@keyframes timer {
+  from {width: 100%;}
+  to {width: 0%;}
+}

@@ -38,7 +38,8 @@ Template.challenge.helpers
     currentMoves = Moves.findOne({challengeId: currentChallenge._id, finishedAt: {$exists: false}})
     if currentMoves?
       currentMoves.player2
-
+  playing: () ->
+    Session.get("currentMove")?
 
 Template.challenge.rendered = () ->
   @autorun () ->

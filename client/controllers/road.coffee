@@ -44,6 +44,6 @@ Template.listChallenges.events
         user2Id: e.currentTarget.id
         createdAt: new Date()
         playing: false
-        player1Life: 5
-        player2Life: 5
+        player1Life: 3
+        player2Life: 3
     return false
